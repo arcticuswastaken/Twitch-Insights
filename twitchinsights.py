@@ -9,7 +9,7 @@ while True:
         break
     except EOFError:
         break
-    twitch_users.append(line)
+    twitch_users.append(line.lower())
 print("\n")
 
 print("Checking the following users:")
