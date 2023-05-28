@@ -56,7 +56,7 @@ else:
         if last_seen_datetime > datetime_now:
             last_seen_strftime = "Currently Online"
         else:
-            last_seen_strftime = last_seen_datetime.strftime("%a, %d %b %Y %H:%M:%S GMTE")
+            last_seen_strftime = last_seen_datetime.strftime("%a, %d %b %Y %H:%M:%S GMT")
 
         rows.append([bot, active_channels, last_seen_strftime])
     print(tabulate(rows, headers=headers))
