@@ -10,6 +10,12 @@ allowed_bots = []
 if exists(ALLOWED_BOTS_FILE):
     allowed_bots = [bot.strip().lower() for bot in open(ALLOWED_BOTS_FILE, "r").readlines()]
 
+if allowed_bots:
+    print("Ignoring the following bots:")
+    for bot in allowed_bots:
+        print(bot)
+    print("\n")
+
 
 print("Enter/Paste your content. Ctrl-C to save it.")
 twitch_users = []
