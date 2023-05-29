@@ -2,8 +2,14 @@ from typing import List
 from tabulate import tabulate
 import requests
 from datetime import datetime, timezone
+from os.path import exists
 
-datetime_now = datetime.now(timezone.utc)
+ALLOWED_BOTS_FILE = ".botsignore"
+
+allowed_bots = []
+if exists(ALLOWED_BOTS_FILE):
+    allowed_bots = [bot.strip().lower() for bot in open(ALLOWED_BOTS_FILE, "r").readlines()]
+
 
 print("Enter/Paste your content. Ctrl-C to save it.")
 twitch_users = []
@@ -14,7 +20,7 @@ while True:
         break
     except EOFError:
         break
-    twitch_users.append(line.lower().strip())
+    twitch_users.append(line.strip().lower())
 print("\n")
 
 print("Checking the following users:")
