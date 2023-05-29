@@ -29,7 +29,7 @@ Once you're input looks something like be above you can press ctrl+c to exit the
 
 ## Example of when bots are found
 
-![image](https://github.com/arcticuswastaken/Twitch-Insights/assets/79585896/cbec92d3-cf0a-4529-ae52-f165f83f2276)
+![image](https://github.com/arcticuswastaken/Twitch-Insights/assets/79585896/c1eb5e32-edb0-423c-9c3f-dd3bcac4f3eb)
 
-The table shows the name of the channel, the number of channels this user is currently in and the date they were last seen (in epoch time)
+The table shows the name of the channel, the number of channels this user is currently or was last seen in in and the date they were last seen in [GMT](https://greenwichmeantime.com/) 
 
