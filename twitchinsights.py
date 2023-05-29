@@ -22,22 +22,43 @@ for twitch_user in twitch_users:
     print(twitch_user)
 print("\n")
 
-ret = requests.request(
+
+# Get all bots
+ret_all = requests.request(
     method="GET",
     url="https://api.twitchinsights.net/v1/bots/all",
 )
-twitchinsights = ret.json()
-bot_channels = set()
+twitchinsights_bots_all = ret_all.json()
+all_bot_channels = set()
 bots = {}
-for bot in twitchinsights["bots"]:
+for bot in twitchinsights_bots_all["bots"]:
     (
         chanel,
         active_channels,
         last_seen,
     ) = bot
-    bot_channels.add(chanel)
+    all_bot_channels.add(chanel)
     bots[chanel] = [active_channels, last_seen]
-potential_bots = set.intersection(bot_channels, set(twitch_users))
+
+# Get active bots
+ret_active = requests.request(
+    method="GET",
+    url="https://api.twitchinsights.net/v1/bots/online",
+)
+twitchinsights_bots_active = ret_active.json()
+active_bot_channels = set()
+active_bots = {}
+for bot in twitchinsights_bots_active["bots"]:
+    (
+        chanel,
+        active_channels,
+        last_seen,
+    ) = bot
+    active_bot_channels.add(chanel)
+    active_bots[chanel] = [active_channels, last_seen]
+
+
+potential_bots = set.intersection(all_bot_channels, set(twitch_users))
 if len(potential_bots) == 0:
     print("No bots found!")
 else:
@@ -53,7 +74,7 @@ else:
             last_seen,
         ) = bots[bot]
         last_seen_datetime = datetime.fromtimestamp(last_seen, timezone.utc)
-        if last_seen_datetime > datetime_now:
+        if bot in active_bot_channels:
             last_seen_strftime = "Currently Online"
         else:
             last_seen_strftime = last_seen_datetime.strftime("%a, %d %b %Y %H:%M:%S GMT")
