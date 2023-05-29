@@ -2,20 +2,20 @@ from typing import List
 from tabulate import tabulate
 import requests
 from datetime import datetime, timezone
-from os.path import exists
+from os.path import exists, abspath, join, dirname
 
-ALLOWED_BOTS_FILE = ".botsignore"
-
+DIRNAME = dirname(abspath(__file__))
+BOTS_IGNORE_FPATH = join(DIRNAME, ".botsignore")
+print(BOTS_IGNORE_FPATH)
 allowed_bots = []
-if exists(ALLOWED_BOTS_FILE):
-    allowed_bots = [bot.strip().lower() for bot in open(ALLOWED_BOTS_FILE, "r").readlines()]
+if exists(BOTS_IGNORE_FPATH):
+    allowed_bots = [bot.strip().lower() for bot in open(BOTS_IGNORE_FPATH, "r").readlines()]
 
 if allowed_bots:
     print("Ignoring the following bots:")
     for bot in allowed_bots:
         print(bot)
     print("\n")
-
 
 print("Enter/Paste your content. Ctrl-C to save it.")
 twitch_users = []
